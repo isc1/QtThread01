@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -14,9 +16,18 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QTimer mGameLoopTimer;
+    void startGameLoopTimer();
+    QGraphicsScene *mGraphicsScene;
+    QGraphicsEllipseItem *mEllipseItem;
+    void updatecircle();
+
 
 private:
     Ui::MainWindow *ui;
+
+private slots:
+    void gameLoopTick();
 };
 
 #endif // MAINWINDOW_H

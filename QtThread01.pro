@@ -24,10 +24,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    consumer.cpp \
+    producer.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    consumer.h \
+    producer.h
 
 FORMS += \
         mainwindow.ui
