@@ -13,18 +13,24 @@ hobbyist coder, and should not be used as the basis for any production systems w
 review by a professional developer.
 
 One important thing to notice when running this several times is that the circle
-end up at different positions every runtime.  This is because the worker
-threads are running unequal amounts of times as can be seen by the totaliterations
+ends up at different positions every runtime.  This is because the worker
+threads are running unequal numbers of times as can be seen by the totaliterations
 counter that qDebug() displays when the workers complete.  The threads get varying levels of
 cpu time whether because of operating system issues, or how Qt works, or for some other
 reasons.  This code does not account for these factors, and so it's an example of how
-things can get out of sync with threads if they are not managed properly.
+things can get out of sync with threads if they are not managed properly.  Sometimes
+the variability between how many times the worker threads runs is quite large, and the circle
+either barely moves or moves much farther than the "target" square, depending on which
+worker got more runtime.
 
 It should be noted that we are not killing the threads properly: closing the window
 by clicking the X button on the window while shutdowncounter > 0 does
 not send any cleanup signal or anything to the threads, so they do not end gracefully
-and you will get "QThread: Destroyed while thread is still running" in app output.
-Don't do it this way in production.
+and you will get:
+
+QThread: Destroyed while thread is still running"
+
+...in app output.  I need to fix this.  Don't do it this way in production.
 
 After closing the window before the worker threads finished a few times, Windows apparently
 decided that this code is being sketchy with the heap, for awhile I got this message in
