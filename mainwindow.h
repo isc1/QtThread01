@@ -16,15 +16,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    int mWindowOriginX;
-    int mWindowOriginY;
-    int mWindowWidth;
-    int mWindowHeight;
     int mSceneWidth;
     int mSceneHeight;
-    int mWindowSceneXOffset;
-    int mWindowSceneYOffset;
-    int mWindowViewOffset;
     QGraphicsScene *mGraphicsScene;
     QGraphicsView *mGraphicsView;
     QGraphicsEllipseItem *mEllipseItem;

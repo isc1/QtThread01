@@ -21,22 +21,15 @@ extern int shutdowncountmax;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
-  , mWindowOriginX(56)
-  , mWindowOriginY(100)
-  , mWindowWidth(1000)
-  , mWindowHeight(800)
   , mSceneWidth(600)
   , mSceneHeight(600)
-  , mWindowSceneXOffset(60)
-  , mWindowSceneYOffset(100)
-  , mWindowViewOffset(40)
   , mGraphicsScene(Q_NULLPTR)
   , mGraphicsView(Q_NULLPTR)
   , mEllipseItem(Q_NULLPTR)
   , mCircleSize(10)
   , mGameLogicUpdateInterval(5) // in milliseconds
 {
-    setGeometry(0,0,800,600);
+    setGeometry(0,0,mSceneWidth,mSceneHeight);
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
 
@@ -52,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mEllipseItem = new QGraphicsEllipseItem(0,0,mCircleSize,mCircleSize);
 
     // set up the view, centering it in the window
-    mGraphicsView->setGeometry(0,0,800,600);
+    mGraphicsView->setGeometry(0,0,mSceneWidth,mSceneHeight);
 
     QLayout *mylayout = new QHBoxLayout();
     centralWidget->setLayout(mylayout);
