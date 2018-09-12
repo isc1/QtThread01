@@ -20,6 +20,6 @@ void Worker1::run()
 
         //msleep(1);
     }
-    qDebug() <<"worker1 set locx to " <<locx;
+    qDebug() << "(worker1)" << __FUNCTION__ << "complete";
 
 }

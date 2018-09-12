@@ -20,4 +20,6 @@ void Worker2::run()
 
         //msleep(1);
     }
+    qDebug() << "(worker2)" << __FUNCTION__ << "complete";
+
 }
