@@ -42,7 +42,7 @@ the threads, so they do not end gracefully and you will get:
 extern globals, and doesn't use getters/setters, and commits other such misdemeanors, fyi.
 
 After closing the window before the worker threads finished a few times, Windows apparently
-decided that this code is being sketchy with the heap, for awhile I got this message in
+decided that this code is being sketchy with the heap; for awhile I got this message in
 Application Output at runtime:
 
 *FTH: (10180): *** Fault tolerant heap shim applied to current process. This is usually due to previous crashes. ****
