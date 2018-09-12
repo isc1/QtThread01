@@ -1,25 +1,18 @@
 // QtThread01 -- simple threaded GUI example
-// This program should display a window with a circle that gradually moves
-// from left to right.  Two worker threads "fight" over the x location locx, with
-// one of the workers steadily "winning."  The purpose of this app is to demonstrate
-// a simple example of how threading can work to take advantage of multiple cpu cores.
+// see README.md for description.
 
-// It should be noted that we are not killing the threads properly: closing the window
-// by clicking the X button on the window while shutdowncouner < shutdowncountmax does
-// not send any cleanup signal or anything to the threads, so they do not end gracefully
-// and you will get "QThread: Destroyed while thread is still running" in app output.
-// Don't do it this way in production.
+// This code was written on Qt 5.11.1 on Windows 10.  It may run on OS X and Linux with
+// modifications but we haven't done that.
 
-// This app is copyright 2018 inhabited.systems all rights reserved.
+// This code is copyright 2018 inhabited.systems, and is shared under the MIT license.
+// (See file MIT-License.txt)  This code is unsupported.
 
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 extern QMutex mutex;
 extern qreal locx;
 extern qreal locy;
 extern int shutdowncounter;
-extern int shutdowncountmax;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -72,7 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 void MainWindow::startAppLoopTimer()
@@ -86,14 +78,14 @@ void MainWindow::startAppLoopTimer()
 void MainWindow::appLoopTick()
 {
     updatecircle();
-    shutdowncounter++;
-    //qDebug() << "(mainwindow)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter << "shutdowncountmax:" << shutdowncountmax;
+    shutdowncounter--;
+    //qDebug() << "(mainwindow)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter;
     mGraphicsScene->advance();
 }
 
 void MainWindow::updatecircle()
 {
     if (mEllipseItem == nullptr) return;
-    //qDebug() << "(mainwindow)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter << "shutdowncountmax:" << shutdowncountmax;
+    //qDebug() << "(mainwindow)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter;
     mEllipseItem->setX(locx);
 }

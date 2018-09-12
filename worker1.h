@@ -9,14 +9,10 @@
 class Worker1 : public QThread
 {
     Q_OBJECT
+
 public:
     void run() override;
 
-signals:
-    //void stringConsumed(const QString &text);
-
-protected:
-    //bool finish;
 };
 
 #endif // CONSUMER_H

@@ -8,18 +8,20 @@ extern int shutdowncountmax;
 
 void Worker2::run()
 {
-    while(shutdowncounter < shutdowncountmax)
+    long totaliterations = 0;
+    while(shutdowncounter > 0)
     {
-        //qDebug() << "(worker2)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter << "shutdowncountmax:" << shutdowncountmax;
+        //qDebug() << "(worker2)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter;
 
-        // Don't put blocking stuff in the critical section.
-        {
+        { // Don't put stuff that blocks (like I/O) in the critical section.
             QMutexLocker locker(&mutex);
             locx += 0.0002;
         } // QMutexLocker releases the mutex when it goes out of scope.
 
+        totaliterations++;
         //msleep(1);
     }
-    qDebug() << "(worker2)" << __FUNCTION__ << "complete";
+    qreal totalmodifications = totaliterations * 0.0002;
+    qDebug() << "(worker2)" << __FUNCTION__ << "complete with" << totaliterations << "totaliterations, or" << totalmodifications << "unit increments";
 
 }
