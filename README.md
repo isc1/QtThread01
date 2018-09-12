@@ -8,11 +8,11 @@ This code was written by an amateur hobbyist coder, and should not be used as th
 basis for any production systems without review by a professional developer.
 
 One important thing to notice when running this several times is that the circle
-does not always make it to the same ending position.  This is because the worker
+end up at different positions every runtime.  This is because the worker
 threads are running unequal amounts of times as can be seen by the totaliterations
 counter that displays when the workers complete.  The threads get varying levels of
-cpu time whether because of operating system issues, or how Qt works, or for any other
-reason.  This code does not account for these factors, and so it's an example of how
+cpu time whether because of operating system issues, or how Qt works, or for some other
+reasons.  This code does not account for these factors, and so it's an example of how
 things can get out of sync with threads if they are not managed properly.
 
 It should be noted that we are not killing the threads properly: closing the window
