@@ -36,7 +36,7 @@ by clicking the X button on the window while **shutdowncounter** > 0 (i.e. befor
 worker threads finish running and exit) does not send any cleanup signal or anything to
 the threads, so they do not end gracefully and you will get:
 
-*QThread: Destroyed while thread is still running*
+_QThread: Destroyed while thread is still running_
 
 ...in app output.  I need to fix this.  Don't do it this way in production.  This code also uses
 extern globals, and doesn't use getters/setters, and commits other such misdemeanors, fyi.
@@ -45,7 +45,7 @@ After closing the window before the worker threads finished a few times, Windows
 decided that this code is being sketchy with the heap; for awhile I got this message in
 Application Output at runtime:
 
-*FTH: (10180): *** Fault tolerant heap shim applied to current process. This is usually due to previous crashes. ****
+_FTH: (10180): *** Fault tolerant heap shim applied to current process. This is usually due to previous crashes. ***_
 
 ...just FYI.  I have no idea what the implications here might be for things like Windows Defender, or
 any other such issues.  After I ran the code a number of times without stopping the window
