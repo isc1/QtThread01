@@ -22,7 +22,7 @@ public:
     QGraphicsView *mGraphicsView;
     QGraphicsEllipseItem *mEllipseItem;
     qreal mCircleSize;
-    long mGameLogicUpdateInterval;
+    long mAppLoopUpdateInterval;
     QTimer mAppLoopTimer;
     void startAppLoopTimer();
     void updatecircle();

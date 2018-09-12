@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
   , mGraphicsView(Q_NULLPTR)
   , mEllipseItem(Q_NULLPTR)
   , mCircleSize(10)
-  , mGameLogicUpdateInterval(5) // in milliseconds
+  , mAppLoopUpdateInterval(5) // in milliseconds
 {
     setGeometry(0,0,mSceneWidth,mSceneHeight);
     QWidget *centralWidget = new QWidget(this);
