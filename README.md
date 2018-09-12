@@ -8,20 +8,28 @@ one of the workers steadily "winning."  A box is drawn near the scene center to 
 see where the circle ends up when the worker threads are done.
 
 The purpose of this app is to demonstrate a simple example of how threading might
-work to take advantage of multiple cpu cores.  This code was written by an amateur
-hobbyist coder, and should not be used as the basis for any production systems without
-review by a professional developer.
+work to take advantage of multiple cpu cores.  This code was written by a hobbyist coder,
+and should not be used as the basis for any production systems without review by a
+professional developer. (I don't think anyone would do that, I'm just trying
+to provide a warning here that this is totally amateur level code, so use at your own risk.)
 
-One important thing to notice when running this several times is that the circle
-ends up at different positions every runtime.  This is because the worker
-threads are running unequal numbers of times as can be seen by the **totaliterations**
-counter that qDebug() displays when the workers complete.  The threads get varying levels of
-cpu time whether because of operating system issues, or how Qt works, or for some other
-reasons.  This code does not account for these factors, and so it's an example of how
-things can get out of sync with threads if they are not managed properly.  Sometimes
-the variability between how many times the worker threads runs is quite large, and the circle
+It's also important to understand that the worker threads *are not taking turns* but rather
+are running as many times as they can (and therefore modifying **locx** as many times as they
+can) before the mutex lock happens from the other thread.
+
+This is the reason the circle ends up at different positions every runtime.  This happens
+because the worker threads are running unequal numbers of times as can be seen by the
+**totaliterations** counter that qDebug() displays when the workers complete.  The threads
+get varying levels of cpu time whether because of operating system issues, or how Qt works,
+or for some other reasons.
+
+This code does not account for these factors, and so it's an example
+of how things can get out of sync with threads if they are not managed properly.  Sometimes
+the variability between how many times the worker threads run is quite large, and the circle
 either barely moves or moves much farther than the "target" square, depending on which
-worker got more runtime.
+worker got more runtime.  This is one example of why threads are kind of intimidating to me,
+personally. :-)  It's easy for weird things to happen that do not have obvious causes.  You can
+uncomment the **usleep(1)** functions in the workers to see more.
 
 It should be noted that we are not killing the threads properly: closing the window
 by clicking the X button on the window while **shutdowncounter** > 0 (i.e. before the
@@ -30,7 +38,8 @@ the threads, so they do not end gracefully and you will get:
 
 *QThread: Destroyed while thread is still running*
 
-...in app output.  I need to fix this.  Don't do it this way in production.
+...in app output.  I need to fix this.  Don't do it this way in production.  This code also uses
+extern globals, and doesn't use getters/setters, and commits other such misdemeanors, fyi.
 
 After closing the window before the worker threads finished a few times, Windows apparently
 decided that this code is being sketchy with the heap, for awhile I got this message in
