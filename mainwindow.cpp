@@ -27,6 +27,13 @@ MainWindow::MainWindow(QWidget *parent) :
     setGeometry(0,0,mSceneWidth,mSceneHeight);
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
+    mGraphicsScene = new QGraphicsScene(parent);
+    mGraphicsView = new QGraphicsView(mGraphicsScene);
+    mGraphicsView->setGeometry(0,0,mSceneWidth,mSceneHeight);
+
+    QLayout *mylayout = new QHBoxLayout();
+    centralWidget->setLayout(mylayout);
+    mylayout->addWidget(mGraphicsView);
 
     QPen mypen;
     QBrush mybrush;
@@ -35,21 +42,12 @@ MainWindow::MainWindow(QWidget *parent) :
     mypen.setStyle(Qt::PenStyle(1));
     mybrush.setColor(QColor(0,0,0));
 
-    mGraphicsScene = new QGraphicsScene(parent);
-    mGraphicsView = new QGraphicsView(mGraphicsScene);
-    mEllipseItem = new QGraphicsEllipseItem(0,0,mCircleSize,mCircleSize);
-
-    // set up the view, centering it in the window
-    mGraphicsView->setGeometry(0,0,mSceneWidth,mSceneHeight);
-
-    QLayout *mylayout = new QHBoxLayout();
-    centralWidget->setLayout(mylayout);
-    mylayout->addWidget(mGraphicsView);
-
+    //set a background color
     QGraphicsRectItem *rect_item1 = mGraphicsScene->addRect(0, 0, mSceneWidth, mSceneHeight);
     rect_item1->setBrush(QColor(240,220,180)); // light tan
-    rect_item1->setPen(mypen);
+    //rect_item1->setPen(mypen);
 
+    mEllipseItem = new QGraphicsEllipseItem(0,0,mCircleSize,mCircleSize);
     mGraphicsScene->addItem(mEllipseItem);
     locx = 30;
     locy = (mSceneHeight/2) - (mCircleSize/2);

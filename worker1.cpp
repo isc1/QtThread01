@@ -8,7 +8,7 @@ extern int shutdowncountmax;
 
 void Worker1::run()
 {
-    long totaliterations;
+    long totaliterations = 0;
     while(shutdowncounter > 0)
     {
         //qDebug() << "(worker1)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter;
@@ -18,10 +18,8 @@ void Worker1::run()
             locx -= 0.0001;
         } // QMutexLocker releases the mutex when it goes out of scope.
 
-        // duuuuude.... comment the next line out and watch what happens... it changes the circle movement, EVEN THOUGH
-        // IT IS NOT PART OF THE locx CALCULATIONS DURING THE ANIMATION RUNTIME... is this compiler/cpu pipeline lookahead stuff?
-        // wtf?!!... okay, now I'm officially afraid of thread programming...
-        totaliterations++;
+        // if you comment the next line out, it changes the way the circle moves, which is interesting
+        //totaliterations++;
         //msleep(1);
     }
     qreal totalmodifications = totaliterations * 0.0001;
