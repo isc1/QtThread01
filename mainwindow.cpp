@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
   , mGraphicsScene(Q_NULLPTR)
   , mGraphicsView(Q_NULLPTR)
   , mEllipseItem(Q_NULLPTR)
-  , mCircleSize(10)
+  , mCircleSize(100)
   , mAppLoopUpdateInterval(5) // in milliseconds
 {
     setGeometry(0,0,mSceneWidth,mSceneHeight);
