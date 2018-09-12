@@ -1,4 +1,4 @@
-# QtThread01 -- simple threaded GUI example
+# QtThread01 -- simple Qthread example with graphics
 
 ![QtThread01](/QtThread01.png)
 
