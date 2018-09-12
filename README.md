@@ -4,10 +4,13 @@
 
 This program should display a window with a circle that gradually moves
 from left to right.  Two worker threads "fight" over the x location locx, with
-one of the workers steadily "winning."  The purpose of this app is to demonstrate
-a simple example of how threading might work to take advantage of multiple cpu cores.
-This code was written by an amateur hobbyist coder, and should not be used as the
-basis for any production systems without review by a professional developer.
+one of the workers steadily "winning."  A box is drawn near the scene center to help
+see where the circle ends up when the worker threads are done.
+
+The purpose of this app is to demonstrate a simple example of how threading might
+work to take advantage of multiple cpu cores.  This code was written by an amateur
+hobbyist coder, and should not be used as the basis for any production systems without
+review by a professional developer.
 
 One important thing to notice when running this several times is that the circle
 end up at different positions every runtime.  This is because the worker
