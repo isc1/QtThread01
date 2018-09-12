@@ -1,28 +1,44 @@
-#include <QDebug>
+// QtThread01 -- simple threaded GUI example
+// This program should display a window with a small circle that gradually moves
+// from left to right.  Two worker threads "fight" over the x location locx, with
+// one of the workers steadily "winning."  The purpose of this app is to demonstrate
+// a simple example of how threading can work to take advantage of multiple cpu cores.
+
+// It should be noted that we are not killing the threads properly: closing the window
+// by clicking the X button on the window does not send any cleanup signal or anything
+// to the threads, so they do not end gracefully.  Don't do it this way in production.
+
+// This app is copyright 2018 inhabited.systems all rights reserved.
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-extern const int DataSize;
-extern char buffer[];
-extern const int BufferSize;
 extern QMutex mutex;
 extern qreal locx;
-extern bool shutdownnow;
+extern qreal locy;
 extern int shutdowncounter;
 extern int shutdowncountmax;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
-    //, ui(new Ui::MainWindow)
+  , mWindowOriginX(56)
+  , mWindowOriginY(100)
+  , mWindowWidth(1000)
+  , mWindowHeight(800)
+  , mSceneWidth(600)
+  , mSceneHeight(600)
+  , mWindowSceneXOffset(60)
+  , mWindowSceneYOffset(100)
+  , mWindowViewOffset(40)
+  , mGraphicsScene(Q_NULLPTR)
+  , mGraphicsView(Q_NULLPTR)
+  , mEllipseItem(Q_NULLPTR)
+  , mCircleSize(10)
+  , mGameLogicUpdateInterval(5) // in milliseconds
 {
-    //ui->setupUi(this);
     setGeometry(0,0,800,600);
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
-    //int myi=0;
-//    shutdownnow = FALSE;
-//    shutdowncounter=0;
-//    shutdowncountmax=100000;
 
     QPen mypen;
     QBrush mybrush;
@@ -31,26 +47,32 @@ MainWindow::MainWindow(QWidget *parent) :
     mypen.setStyle(Qt::PenStyle(1));
     mybrush.setColor(QColor(0,0,0));
 
-
-    // why does the next line cause runtime to crash?
     mGraphicsScene = new QGraphicsScene(parent);
     mGraphicsView = new QGraphicsView(mGraphicsScene);
-    mEllipseItem = new QGraphicsEllipseItem(0,0,10,10);
-
+    mEllipseItem = new QGraphicsEllipseItem(0,0,mCircleSize,mCircleSize);
 
     // set up the view, centering it in the window
     mGraphicsView->setGeometry(0,0,800,600);
-    mGraphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    mGraphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
 
     QLayout *mylayout = new QHBoxLayout();
     centralWidget->setLayout(mylayout);
     mylayout->addWidget(mGraphicsView);
 
-    mGraphicsScene->addItem(mEllipseItem);
-    mGraphicsScene->addEllipse(10,10,10,10,mypen,mybrush);
+    QGraphicsRectItem *rect_item1 = mGraphicsScene->addRect(0, 0, mSceneWidth, mSceneHeight);
+    rect_item1->setBrush(QColor(240,220,180)); // light tan
+    rect_item1->setPen(mypen);
 
-    startGameLoopTimer();
+    mGraphicsScene->addItem(mEllipseItem);
+    locx = 30;
+    locy = (mSceneHeight/2) - (mCircleSize/2);
+    //qDebug() << "add circle at locx " << locx;
+    mGraphicsScene->addEllipse(locx,locy,mCircleSize,mCircleSize,mypen,mybrush);
+    // For some reason, the previous addEllipse doesn't seem to setX,setY to locx,locy
+    // so we have to do it explicitly:
+    mEllipseItem->setX(locx);
+    mEllipseItem->setY(locy);
+
+    startAppLoopTimer();
 }
 
 MainWindow::~MainWindow()
@@ -58,31 +80,25 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::startGameLoopTimer()
+void MainWindow::startAppLoopTimer()
 {
-    // associate the signal timeout() to the slot gameTick(), and start our update timer
-    QObject::connect(&mGameLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoopTick()));
-    mGameLoopTimer.start(5);
-
-    qDebug() << __FUNCTION__ << " complete.";
+    // associate the signal timeout() to the slot appLoopTick(), and start our update timer
+    QObject::connect(&mAppLoopTimer, SIGNAL(timeout()), this, SLOT(appLoopTick()));
+    mAppLoopTimer.start(5);
+    //qDebug() << __FUNCTION__ << "complete.";
 }
 
-void MainWindow::gameLoopTick()
+void MainWindow::appLoopTick()
 {
-
     updatecircle();
     shutdowncounter++;
-    //qDebug() << "(mainwindow)  shutdowncounter: " << shutdowncounter << "   shutdowncountmax:" << shutdowncountmax;
-
-
+    //qDebug() << "(mainwindow)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter << "shutdowncountmax:" << shutdowncountmax;
     mGraphicsScene->advance();
-
 }
 
 void MainWindow::updatecircle()
 {
     if (mEllipseItem == nullptr) return;
-
-    //qDebug() << "At count " << shutdowncounter << " setting ellipse x: " <<locx;
+    //qDebug() << "(mainwindow)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter << "shutdowncountmax:" << shutdowncountmax;
     mEllipseItem->setX(locx);
 }

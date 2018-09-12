@@ -1,25 +1,21 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "consumer.h"
-#include "producer.h"
+#include "worker1.h"
+#include "worker2.h"
 
-extern const int DataSize;
-extern const int BufferSize;
-extern char buffer[];
 extern QMutex mutex;
 extern qreal locx;
-extern bool shutdownnow;
+extern qreal locy;
 extern int shutdowncounter;
 extern int shutdowncountmax;
 
-
-extern const int DataSize = 30;
-extern const int BufferSize = 5;
-char buffer[BufferSize];
-qreal locx = 200;
 QMutex mutex;
 
-bool shutdownnow = FALSE;
+// If these don't get assigned here in main(), they are not allocated at all and don't
+// exist as externs for other source files, causing build errors:
+qreal locx = 0;
+qreal locy = 0;
+
 int shutdowncounter = 0;
 int shutdowncountmax = 100000;
 
@@ -27,17 +23,12 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    qDebug() << "Here in main";
+    //qDebug() << __FUNCTION__ << " start.";
 
-    //for(int i=0; i< DataSize; i++) buffer[i] = 'A';
-
-    Producer producer;
-    Consumer consumer;
-    producer.start();
-    consumer.start();
-
-//    consumer.wait();
-//    producer.wait();
+    Worker2 worker2;
+    Worker1 worker1;
+    worker2.start();
+    worker1.start();
 
     w.show();
     return a.exec();

@@ -16,19 +16,29 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QTimer mGameLoopTimer;
-    void startGameLoopTimer();
+    int mWindowOriginX;
+    int mWindowOriginY;
+    int mWindowWidth;
+    int mWindowHeight;
+    int mSceneWidth;
+    int mSceneHeight;
+    int mWindowSceneXOffset;
+    int mWindowSceneYOffset;
+    int mWindowViewOffset;
     QGraphicsScene *mGraphicsScene;
     QGraphicsView *mGraphicsView;
     QGraphicsEllipseItem *mEllipseItem;
+    qreal mCircleSize;
+    long mGameLogicUpdateInterval;
+    QTimer mAppLoopTimer;
+    void startAppLoopTimer();
     void updatecircle();
-
 
 private:
     Ui::MainWindow *ui;
 
 private slots:
-    void gameLoopTick();
+    void appLoopTick();
 };
 
 #endif // MAINWINDOW_H

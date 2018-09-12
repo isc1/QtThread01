@@ -25,16 +25,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    consumer.cpp \
-    producer.cpp
+        worker1.cpp \
+        worker2.cpp
 
 HEADERS += \
         mainwindow.h \
-    consumer.h \
-    producer.h
-
-FORMS += \
-        mainwindow.ui
+        worker1.h \
+        worker2.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
