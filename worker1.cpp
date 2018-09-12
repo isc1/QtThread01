@@ -8,13 +8,14 @@ extern int shutdowncounter;
 void Worker1::run()
 {
     long totaliterations = 0;
+    qreal mydelta = 0.0002;
     while(shutdowncounter > 0)
     {
         //qDebug() << "(worker1)" << __FUNCTION__ << "locx:" << locx << "shutdowncounter: " << shutdowncounter;
 
         { // Don't put stuff that blocks (like I/O) in the critical section.
             QMutexLocker locker(&mutex);
-            locx -= 0.0002;
+            locx -= mydelta;
         } // QMutexLocker releases the mutex when it goes out of scope.
 
         totaliterations++;
@@ -23,7 +24,7 @@ void Worker1::run()
         // to see.
         //usleep(1);
     }
-    qreal totalmodifications = totaliterations * 0.0001;
-    qDebug() << "(worker1)" << __FUNCTION__ << "complete with" << totaliterations << "totaliterations, or" << totalmodifications << "unit decrements";
+    qreal totalmodifications = totaliterations * mydelta;
+    qDebug() << "(worker1)" << __FUNCTION__ << "complete with" << totaliterations << "totaliterations, or" << totalmodifications << "unit (pixel) decrements";
 
 }
