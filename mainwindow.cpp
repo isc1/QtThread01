@@ -42,18 +42,18 @@ MainWindow::MainWindow(QWidget *parent) :
     mypen.setStyle(Qt::PenStyle(1));
     mybrush.setColor(QColor(0,0,0));
 
-    //set a background color
+    // set a background color
     QGraphicsRectItem *rect_item1 = mGraphicsScene->addRect(0, 0, mSceneWidth, mSceneHeight);
     rect_item1->setBrush(QColor(255, 243, 230)); // light tan
-    //rect_item1->setPen(mypen);
+    // create a reference square on the screen to help see where the circle ends up
     QGraphicsRectItem *rect_item2 = mGraphicsScene->addRect(mSceneWidth/4+mCircleSize/1.35, mSceneHeight/4+mCircleSize/1.35, mSceneWidth/4, mSceneHeight/4);
 
 
+    // add the circle that is going to animate
     mEllipseItem = new QGraphicsEllipseItem(0,0,mCircleSize,mCircleSize);
     mGraphicsScene->addItem(mEllipseItem);
     locx = 30;
     locy = (mSceneHeight/2) - (mCircleSize/2);
-    //qDebug() << "add circle at locx " << locx;
     mGraphicsScene->addEllipse(locx,locy,mCircleSize,mCircleSize,mypen,mybrush);
     // For some reason, the previous addEllipse doesn't seem to setX,setY to locx,locy
     // so we have to do it explicitly:

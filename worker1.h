@@ -12,7 +12,6 @@ class Worker1 : public QThread
 
 public:
     void run() override;
-
 };
 
 #endif // CONSUMER_H
