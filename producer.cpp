@@ -9,7 +9,11 @@ extern const int DataSize;
 extern char buffer[];
 extern const int BufferSize;
 extern QMutex mutex;
-extern int locx;
+extern qreal locx;
+extern bool shutdownnow;
+extern int shutdowncounter;
+extern int shutdowncountmax;
+
 
 void Producer::run()
 {
@@ -18,6 +22,13 @@ void Producer::run()
 //        QMutexLocker locker(&mutex);
 //        buffer[i % BufferSize] = "ACGT"[static_cast<int>(qrand()) % 4];
 //    }
-    QMutexLocker locker(&mutex);
-    locx++;
+
+    while(shutdowncounter < shutdowncountmax)
+    {
+        //qDebug() << "(producer)  shutdowncounter: " << shutdowncounter << "   shutdowncountmax:" << shutdowncountmax;
+        //qDebug() <<"(producer) set locx to " <<locx;
+        QMutexLocker locker(&mutex);
+        locx += 0.0001;
+//        msleep(1);
+    }
 }

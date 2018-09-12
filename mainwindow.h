@@ -19,6 +19,7 @@ public:
     QTimer mGameLoopTimer;
     void startGameLoopTimer();
     QGraphicsScene *mGraphicsScene;
+    QGraphicsView *mGraphicsView;
     QGraphicsEllipseItem *mEllipseItem;
     void updatecircle();
 

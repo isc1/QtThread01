@@ -7,12 +7,21 @@ extern const int DataSize;
 extern const int BufferSize;
 extern char buffer[];
 extern QMutex mutex;
+extern qreal locx;
+extern bool shutdownnow;
+extern int shutdowncounter;
+extern int shutdowncountmax;
+
 
 extern const int DataSize = 30;
 extern const int BufferSize = 5;
 char buffer[BufferSize];
-int locx = 0;
+qreal locx = 200;
 QMutex mutex;
+
+bool shutdownnow = FALSE;
+int shutdowncounter = 0;
+int shutdowncountmax = 100000;
 
 int main(int argc, char *argv[])
 {
@@ -26,9 +35,10 @@ int main(int argc, char *argv[])
     Consumer consumer;
     producer.start();
     consumer.start();
-    producer.wait();
-    consumer.wait();
-    w.show();
 
+//    consumer.wait();
+//    producer.wait();
+
+    w.show();
     return a.exec();
 }

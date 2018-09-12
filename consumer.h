@@ -6,11 +6,6 @@
 #include <QThread>
 #include <QMutexLocker>
 
-//extern const int DataSize;
-//extern char buffer[];
-//extern const int BufferSize;
-//extern QMutex mutex;
-
 class Consumer : public QThread
 {
     Q_OBJECT
