@@ -25,10 +25,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     //qDebug() << __FUNCTION__ << " start.";
 
-    Worker2 worker2;
     Worker1 worker1;
-    worker2.start();
+    Worker2 worker2;
     worker1.start();
+    worker2.start();
 
     w.show();
     return a.exec();
