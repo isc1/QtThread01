@@ -1,5 +1,7 @@
 # QtThread01 -- simple threaded GUI example
 
+![QtThread01](/QtThread01.png)
+
 This program should display a window with a circle that gradually moves
 from left to right.  Two worker threads "fight" over the x location locx, with
 one of the workers steadily "winning."  The purpose of this app is to demonstrate
