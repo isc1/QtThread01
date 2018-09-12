@@ -1,4 +1,5 @@
 # QtThread01 -- simple threaded GUI example
+
 This program should display a window with a circle that gradually moves
 from left to right.  Two worker threads "fight" over the x location locx, with
 one of the workers steadily "winning."  The purpose of this app is to demonstrate
@@ -21,11 +22,15 @@ and you will get "QThread: Destroyed while thread is still running" in app outpu
 Don't do it this way in production.
 
 After closing the window before the worker threads finished a few times, Windows apparently
-decided that this code is being sketchy with the heap, so now I get this message in
+decided that this code is being sketchy with the heap, for awhile I got this message in
 Application Output at runtime:
+
 FTH: (10180): *** Fault tolerant heap shim applied to current process. This is usually due to previous crashes. ***
+
 ...just FYI.  I have no idea what the implications here might be for things like Windows Defender, or
-any other such issues.
+any other such issues.  After I ran the code a number of times without stopping the window
+before the worker threads finished, windows apparently decided to stop making this fault
+tolerant heap shim thing happen, and I stopped seeing that message.
 
 This code was written on Qt 5.11.1 on Windows 10.  It may run on OS X and Linux with
 modifications but we haven't done that.

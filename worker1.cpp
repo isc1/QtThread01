@@ -4,7 +4,6 @@ extern QMutex mutex;
 extern qreal locx;
 extern qreal locy;
 extern int shutdowncounter;
-extern int shutdowncountmax;
 
 void Worker1::run()
 {
@@ -15,12 +14,14 @@ void Worker1::run()
 
         { // Don't put stuff that blocks (like I/O) in the critical section.
             QMutexLocker locker(&mutex);
-            locx -= 0.0001;
+            locx -= 0.0002;
         } // QMutexLocker releases the mutex when it goes out of scope.
 
-        // if you comment the next line out, it changes the way the circle moves, which is interesting
-        //totaliterations++;
-        //msleep(1);
+        totaliterations++;
+        // if one usleep is uncommented, the circle shoots off the scene.  if both this usleep and the one in worker2
+        // are uncommented, locx changes verrrry slowly... start shutdowncounter > 3000 or so with both usleeps uncommented
+        // to see.
+        //usleep(1);
     }
     qreal totalmodifications = totaliterations * 0.0001;
     qDebug() << "(worker1)" << __FUNCTION__ << "complete with" << totaliterations << "totaliterations, or" << totalmodifications << "unit decrements";

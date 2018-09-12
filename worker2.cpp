@@ -4,7 +4,6 @@ extern QMutex mutex;
 extern qreal locx;
 extern qreal locy;
 extern int shutdowncounter;
-extern int shutdowncountmax;
 
 void Worker2::run()
 {
@@ -15,11 +14,11 @@ void Worker2::run()
 
         { // Don't put stuff that blocks (like I/O) in the critical section.
             QMutexLocker locker(&mutex);
-            locx += 0.0002;
+            locx += 0.0004;
         } // QMutexLocker releases the mutex when it goes out of scope.
 
         totaliterations++;
-        //msleep(1);
+        //usleep(1);
     }
     qreal totalmodifications = totaliterations * 0.0002;
     qDebug() << "(worker2)" << __FUNCTION__ << "complete with" << totaliterations << "totaliterations, or" << totalmodifications << "unit increments";

@@ -44,8 +44,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //set a background color
     QGraphicsRectItem *rect_item1 = mGraphicsScene->addRect(0, 0, mSceneWidth, mSceneHeight);
-    rect_item1->setBrush(QColor(240,220,180)); // light tan
+    rect_item1->setBrush(QColor(255, 243, 230)); // light tan
     //rect_item1->setPen(mypen);
+    QGraphicsRectItem *rect_item2 = mGraphicsScene->addRect(mSceneWidth/4+mCircleSize/1.35, mSceneHeight/4+mCircleSize/1.35, mSceneWidth/4, mSceneHeight/4);
+
 
     mEllipseItem = new QGraphicsEllipseItem(0,0,mCircleSize,mCircleSize);
     mGraphicsScene->addItem(mEllipseItem);
@@ -63,6 +65,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    // I set this to try to tell threads to quit, but it doesn't work.  We need to catch the
+    // user clicking the X button to close the window, and make the threads quit from that.
+    // try https://stackoverflow.com/questions/26181486/c-application-does-not-kill-all-processes-on-exit#26181776
+    shutdowncounter = 0;
 }
 
 void MainWindow::startAppLoopTimer()

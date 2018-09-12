@@ -14,7 +14,7 @@ QMutex mutex;
 // exist as externs for other source files, causing build errors:
 qreal locx = 0;
 qreal locy = 0;
-int shutdowncounter = 2000;
+int shutdowncounter = 1000;
 
 int main(int argc, char *argv[])
 {
