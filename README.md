@@ -31,7 +31,7 @@ worker got more runtime.  This is one example of why threads are kind of intimid
 personally. :-)  It's easy for weird things to happen that do not have obvious causes.  You can
 uncomment the **usleep(1)** functions in the workers to see more.
 
-It should be noted that we are not killing the threads properly: closing the window
+**It should be noted that we are not killing the threads properly:** closing the window
 by clicking the X button on the window while **shutdowncounter** > 0 (i.e. before the
 worker threads finish running and exit) does not send any cleanup signal or anything to
 the threads, so they do not end gracefully and you will get:
