@@ -53,9 +53,16 @@ before the worker threads finished, windows apparently decided to stop making th
 tolerant heap shim thing happen, and I stopped seeing that message.
 
 Also, thanks to https://www.reddit.com/user/peppermg for pointing this out:
+
 https://blog.qt.io/blog/2010/06/17/youre-doing-it-wrong/
 
-I welcome pull requests from anyone who knows how to improve this code and has the time to offer suggestions.
+I posted this repo on reddit at:
+
+https://www.reddit.com/r/Qt5/comments/9fcq3j/github_isc1qtthread01_minimal_qt_widget_threaded/
+
+where jcelerier offered a very nice refactor of this code which is at:
+
+https://github.com/isc1/QtThreadFight
 
 *This code was written on Qt 5.11.1 on Windows 10.  It may run on OS X and Linux with modifications but we haven't done that.*
 
