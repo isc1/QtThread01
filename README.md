@@ -52,6 +52,11 @@ any other such issues.  After I ran the code a number of times without stopping 
 before the worker threads finished, windows apparently decided to stop making this fault
 tolerant heap shim thing happen, and I stopped seeing that message.
 
+Also, thanks to https://www.reddit.com/user/peppermg for pointing this out:
+https://blog.qt.io/blog/2010/06/17/youre-doing-it-wrong/
+
+I welcome pull requests from anyone who knows how to improve this code and has the time to offer suggestions.
+
 *This code was written on Qt 5.11.1 on Windows 10.  It may run on OS X and Linux with modifications but we haven't done that.*
 
 *This code is copyright 2018 inhabited.systems, and is shared under the MIT license. (See file MIT-License.txt)  This code is unsupported.*
