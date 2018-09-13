@@ -67,7 +67,7 @@ MainWindow::~MainWindow()
 {
     // I set this to try to tell threads to quit, but it doesn't work.  We need to catch the
     // user clicking the X button to close the window, and make the threads quit from that.
-    // try https://stackoverflow.com/questions/26181486/c-application-does-not-kill-all-processes-on-exit#26181776
+    // try https://stackoverflow.com/a/26185770/10355150
     shutdowncounter = 0;
 }
 
