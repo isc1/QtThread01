@@ -16,8 +16,8 @@ where https://www.reddit.com/user/jcelerier offered a very nice refactor of this
 https://github.com/isc1/QtThreadFight
 
 ...that's actually the much more correct way to do this sort of thing in Qt/C++, so if you are
-looking for a code example to use in an actual app, that would be the one you want to look at.
-Runs smooth as butter. :)
+looking for a code example to use in an actual Qt threaded app, that would be the one you want to
+look at.  Runs smooth as butter. :)
 
 The purpose of this app is to demonstrate a simple example of how threading might
 work to take advantage of multiple cpu cores, with the intention of trying to graphically
