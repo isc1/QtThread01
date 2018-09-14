@@ -7,10 +7,23 @@ from left to right.  Two worker threads "fight" over the x location **locx**, wi
 one of the workers steadily "winning."  A box is drawn near the scene center to help
 see where the circle ends up when the worker threads are done.
 
+I posted this repo on reddit at:
+
+https://www.reddit.com/r/Qt5/comments/9fcq3j/github_isc1qtthread01_minimal_qt_widget_threaded/
+
+where jcelerier offered a very nice refactor of this code which is at:
+
+https://github.com/isc1/QtThreadFight
+
+...that's actually the much more correct way to do this sort of thing in Qt/C++, so if you are
+looking for a code example to use in an actual app, that would be the one you want to look at.
+Runs smooth as butter. :)
+
 The purpose of this app is to demonstrate a simple example of how threading might
-work to take advantage of multiple cpu cores.  This code was written by a hobbyist coder,
-and should not be used as the basis for any production systems without review by a
-professional developer. (I don't think anyone would do that, I'm just trying
+work to take advantage of multiple cpu cores, with the intention of trying to graphically
+depict how the threads are interacting with the data in real time.  This code was written
+by a hobbyist coder, and should not be used as the basis for any production systems without
+review by a professional developer. (I don't think that's very likely, I'm just trying
 to provide a warning here that this is totally amateur level code, so use at your own risk.)
 
 It's also important to understand that the worker threads *are not taking turns* but rather
@@ -51,14 +64,6 @@ _FTH: (10180): *** Fault tolerant heap shim applied to current process. This is 
 any other such issues.  After I ran the code a number of times without stopping the window
 before the worker threads finished, windows apparently decided to stop making this fault
 tolerant heap shim thing happen, and I stopped seeing that message.
-
-I posted this repo on reddit at:
-
-https://www.reddit.com/r/Qt5/comments/9fcq3j/github_isc1qtthread01_minimal_qt_widget_threaded/
-
-where jcelerier offered a very nice refactor of this code which is at:
-
-https://github.com/isc1/QtThreadFight
 
 Also, thanks to https://www.reddit.com/user/peppermg for pointing this out:
 
