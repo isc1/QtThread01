@@ -11,7 +11,7 @@ I posted this repo on reddit at:
 
 https://www.reddit.com/r/Qt5/comments/9fcq3j/github_isc1qtthread01_minimal_qt_widget_threaded/
 
-where jcelerier offered a very nice refactor of this code which is at:
+where https://www.reddit.com/user/jcelerier offered a very nice refactor of this code which is at:
 
 https://github.com/isc1/QtThreadFight
 
