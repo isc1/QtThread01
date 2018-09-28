@@ -13,7 +13,7 @@ https://www.reddit.com/r/Qt5/comments/9fcq3j/github_isc1qtthread01_minimal_qt_wi
 
 where https://www.reddit.com/user/jcelerier offered a very nice refactor of this code which is at:
 
-https://github.com/isc1/QtThreadFight
+https://github.com/isc1/QtThreadExample-jcelerier
 
 ...that's actually the much more correct way to do this sort of thing in Qt/C++, so if you are
 looking for a code example to use in an actual Qt threaded app, that would be the one you want to
